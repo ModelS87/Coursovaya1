@@ -1,24 +1,79 @@
+import java.sql.SQLOutput;
 import java.util.Arrays;
+import java.util.Random;
 
 public class Main {
-    public static Employee[] employee = new Employee[10];
+    public static final Employee[] EMPLOYEES = new Employee[10];
 
     public static void main(String[] args) {
-        employee[0] = new Employee("Мария Ивановна Иванова ", "1", 50_000);
-        employee[1] = new Employee("Денис Денисович Дурнев ", "2", 100_000);
-        employee[2] = new Employee("Григорий Юрьевич Вертлявый", "1", 99_000);
-        employee[3] = new Employee("Жанна Рудольфовна Морозова", "4", 50_000);
-        employee[4] = new Employee("Виктория Исааковна Зюзина", "5", 25_000);
-        employee[5] = new Employee("Валерия Петровна Бабкина", "4", 88_000);
-        employee[6] = new Employee("Игорь Юрьевич Смуглов", "5", 60_000);
-        employee[7] = new Employee("Федор Геннадьевич Мурзилкин", "4", 89_000);
-        employee[8] = new Employee("Армен Ашотович Григорян", "3", 90_000);
-        employee[9] = new Employee("Инесса Викторовна Балалайкина", "4", 30_000);
-        System.out.println(employee[1]);
-        System.out.println(Arrays.toString(employee));
-        System.out.println(employeeMaxSalary);
-    }
-
-
+        fillEmployees();
+        printFullInfo();
+        System.out.println("Сумма ЗП: " + totalSalaries());
+        System.out.println("Сотрудник с мин зарплатой: " + findEmployeeWithMinSalary());
+        System.out.println("Сотрудник с макс зарплатой: " + findEmployeeWithMaxSalary());
+        System.out.println("Средняя ЗП: " + findAverageSalary());
+        printNameInfo();
 
     }
+
+    private static void fillEmployees() {
+        Random random = new Random();
+        for (int i = 0; i < EMPLOYEES.length; i++) {
+            EMPLOYEES[i] = new Employee("Сотрудник " + (i + 1),
+                    random.nextInt(6),
+                    random.nextInt(60_000));
+        }
+    }
+
+    private static void printFullInfo() {
+        for (Employee employee : EMPLOYEES) {
+            System.out.println(employee);
+        }
+    }
+
+    private static int totalSalaries() {
+        int sum = 0;
+        for (Employee employee : EMPLOYEES) {
+        sum = employee.getSalary();
+    }
+    return sum;
+}
+
+    private static Employee findEmployeeWithMinSalary() {
+        int min = Integer.MAX_VALUE;
+        Employee employee = null;
+        for (Employee emp : EMPLOYEES) {
+            if (emp.getSalary() < min) {
+                min = emp.getSalary();
+                employee = emp;
+            }
+        }
+        return employee;
+    }
+
+    private static Employee findEmployeeWithMaxSalary() {
+        int max = Integer.MIN_VALUE;
+        Employee employee = null;
+        for (Employee emp : EMPLOYEES) {
+            if (emp.getSalary() > max) {
+                max = emp.getSalary();
+                employee = emp;
+            }
+        }
+        return employee;
+
+    }
+    private static double findAverageSalary() {
+        return totalSalaries()/(double)EMPLOYEES.length;
+    }
+    private static void printNameInfo() {
+        for (Employee employee : EMPLOYEES) {
+            System.out.println(employee.getEmployeeName());
+        }
+    }
+
+}
+
+
+
+

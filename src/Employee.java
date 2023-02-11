@@ -1,22 +1,25 @@
 public class Employee {
-    private String employeeName;
-    private String department;
+    private static int counterid = 1;
+    private final int id;
+    private final String employeeName;
+    private int department;
     private int salary;
-    private int id;
-    static int count;
 
-    public Employee(String employeeName, String department, int salary) {
+
+    public Employee(String employeeName,
+                    int department,
+                    int salary) {
+        this.id = counterid++;
         this.employeeName = employeeName;
         this.department = department;
         this.salary = salary;
-        id = ++ count;
     }
 
     public String getEmployeeName() {
         return this.employeeName;
     }
 
-    public String getDepartment() {
+    public int getDepartment() {
         return this.department;
     }
 
@@ -24,38 +27,22 @@ public class Employee {
         return this.salary;
     }
 
-
-    public void setDepartment(String department) {
+    public void setDepartment(int department) {
         this.department = department;
     }
-
     public void setSalary(int salary) {
         this.salary = salary;
     }
-
+    @Override
     public String toString() {
-        return "Ф.И.О. сотрудника: " + employeeName + ", отдел: " + department + ", зарплата: " + salary;
+        return String.format(
+                "id: %d, Ф.И.О.: %s, ЗП: %d, № отдела: %d",
+                id,
+                employeeName,
+                salary,
+                department
+        );
+
     }
-    public static Employee searchMaxSalary (Employee[] employee) {
-        Employee employeeMaxSalary = null;
-        int maxSalary = employee[0].getSalary();
-        for(int i = 0; i < employee.length; i++) {
-            if (employee[i].getSalary() > maxSalary) {
-                maxSalary = employee[i].getSalary();
-                employeeMaxSalary = employee [i];
-            }
-        }
-        return employeeMaxSalary;
-    }
-    public static Employee searchMinSalary (Employee[] employee) {
-        Employee employeeMinSalary = null;
-        int minSalary = employee[0].getSalary();
-        for(int i = 0; i < employee.length; i++) {
-            if (employee[i].getSalary() < minSalary) {
-                minSalary = employee[i].getSalary();
-                employeeMinSalary = employee [i];
-            }
-        }
-        return employeeMinSalary;
-    }
+
 }
