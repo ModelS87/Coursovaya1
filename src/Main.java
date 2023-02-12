@@ -20,7 +20,7 @@ public class Main {
         Random random = new Random();
         for (int i = 0; i < EMPLOYEES.length; i++) {
             EMPLOYEES[i] = new Employee("Сотрудник " + (i + 1),
-                    random.nextInt(6),
+                    random.nextInt(5)+1,
                     random.nextInt(60_000));
         }
     }
@@ -34,7 +34,7 @@ public class Main {
     private static int totalSalaries() {
         int sum = 0;
         for (Employee employee : EMPLOYEES) {
-        sum = employee.getSalary();
+        sum += employee.getSalary();
     }
     return sum;
 }
